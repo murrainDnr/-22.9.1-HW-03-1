@@ -1,0 +1,42 @@
+def binary_search(arr, x):
+    low = 0
+    high = len(arr) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] < x:
+            low = mid + 1
+        elif arr[mid] > x:
+            high = mid - 1
+        else:
+            return mid
+    return low
+
+def main():
+    input_sequence = input("Введите последовательность чисел через пробел: ")
+    try:
+        numbers = [int(x) for x in input_sequence.split()]
+    except ValueError:
+        print("Ошибка: некорректный ввод")
+        return
+
+    user_number = input("Введите любое число: ")
+    try:
+        user_number = int(user_number)
+    except ValueError:
+        print("Ошибка: введено не число")
+        return
+
+    sorted_numbers = sorted(numbers)
+    position = binary_search(sorted_numbers, user_number)
+    
+    if position == len(sorted_numbers):
+        print("Число больше всех элементов в последовательности")
+    elif position == 0:
+        print("Число меньше всех элементов в последовательности")
+    else:
+        print(f"Позиция, на которой число меньше введенного: {position - 1}, число: {sorted_numbers[position - 1]}")
+        print(f"Позиция, на которой число больше или равно введенному: {position}, число: {sorted_numbers[position]}")
+
+
+if __name__ == "__main__":
+    main()
